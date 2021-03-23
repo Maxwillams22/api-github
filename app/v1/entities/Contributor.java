@@ -1,4 +1,4 @@
-package v1.get;
+package v1.entities;
 
 public class Contributor {
 

@@ -3,10 +3,11 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
+GET     /                           v2.controllers.HomeController.index
 
-GET    /api/v1/organizations/:orgName/contributors      v1.get.OrganizationController.getContributions(orgName: String)
+GET    /api/v1/organizations/:orgName/contributors      v1.controllers.OrganizationController.getContributions(orgName: String)
 
+GET    /api/v2/organization                             v2.controllers.HomeController.show(orgName: String)
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
@@ -16,4 +17,4 @@ GET     /message                    controllers.AsyncController.message
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(file)
 
-#GET    /github                     v1.get.OrganizationController.index
+#GET    /github                     v1.controllers.OrganizationController.index
