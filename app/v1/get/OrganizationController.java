@@ -1,13 +1,14 @@
 package v1.get;
+
 import play.libs.Json;
 import play.libs.ws.*;
 import play.mvc.Result;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import static java.text.MessageFormat.format;
 import static play.mvc.Results.ok;
@@ -29,6 +30,7 @@ public class OrganizationController implements WSBodyReadables, WSBodyWritables 
     public CompletionStage<Result> getContributions(String orgName) {
         return getRepositories(orgName)
                 .thenApply(repositoriesResponse -> {
+                    List<Contributor> listContributions = new ArrayList<>();
                     List<List<Contributor>> contributors = new ArrayList<>();
                     repositoriesResponse.asJson().forEach(json -> {
                         List<Contributor> listContributors = new ArrayList<>();
@@ -50,7 +52,23 @@ public class OrganizationController implements WSBodyReadables, WSBodyWritables 
                             e.printStackTrace();
                         }
                     });
-                    return contributors;
+
+                    List<Contributor> flat =
+                            contributors.stream()
+                                    .flatMap(List::stream)
+                                    .collect(Collectors.toList());
+
+                    Map<String, Integer> mapContributors = flat.stream().collect(Collectors.groupingBy(Contributor::getName, Collectors.summingInt(Contributor::getContributions)));
+
+                    mapContributors.forEach((key, v) ->
+                            listContributions.add(
+                                    new Contributor(key,v)
+                            )
+                    );
+
+                    listContributions.sort(Comparator.comparingInt(Contributor::getContributions).reversed());
+
+                    return listContributions;
 
                 }).thenApply(a -> ok(Json.toJson(a)));
     }
