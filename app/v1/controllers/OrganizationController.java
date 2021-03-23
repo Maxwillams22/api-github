@@ -1,8 +1,9 @@
-package v1.get;
+package v1.controllers;
 
 import play.libs.Json;
 import play.libs.ws.*;
 import play.mvc.Result;
+import v1.entities.Contributor;
 
 import javax.inject.Inject;
 import java.util.*;
