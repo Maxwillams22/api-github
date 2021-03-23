@@ -1,0 +1,37 @@
+@(message: String)(implicit assetsFinder: AssetsFinder)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @* Here's where we render the page title `String`. *@
+    <title>@title</title>
+    <link rel="stylesheet" media="screen" href="@assetsFinder.path("stylesheets/form.css")">
+    <link rel="shortcut icon" type="image/png" href="@assetsFinder.path("images/favicon.png")">
+    <script src="@assetsFinder.path("javascripts/hello.js")" type="text/javascript"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <h1>Welcome</h1>
+
+        <form class="form">
+            <input type="text" name="name" placeholder="Nome">
+            <button type="submit" id="login-button">Login</button>
+        </form>
+    </div>
+
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+</html>
