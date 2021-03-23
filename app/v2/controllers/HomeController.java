@@ -1,6 +1,7 @@
-package controllers;
+package v2.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import controllers.AssetsFinder;
 import jdk.nashorn.internal.ir.RuntimeNode;
 import play.mvc.*;
 
